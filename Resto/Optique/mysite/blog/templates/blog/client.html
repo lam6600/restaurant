@@ -1,0 +1,97 @@
+{% extends 'blog/layout.html' %} 
+{% block head %}
+{{ block.super }}
+<style>
+
+.btn.btn {
+font-size: 18px;
+outline: none;
+padding: 8px 16px;
+border-radius: 6px;
+cursor: pointer;
+transition: 1s;
+border: 1px solid #3eb2fa;
+background-color: transparent;
+color: white;
+}
+
+.btn.btn:hover {
+background: #3eb2fa;
+}
+.btn.btn-warning:hover {
+background-color: orange; 
+}
+
+.btn.btn-danger:hover {
+background-color: red;
+}
+.table.client {
+width:135%;
+border-collapse: collapse;
+border-radius: 1px;
+overflow: hidden;
+margin-left:-200px;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="content">
+	<input   class="btn btn" type=button value="Retour" onClick="javascript:history.go(-1);">
+	
+	<div style="color: #fff" class="title text-center">
+		<h1>Liste des Clients</h1>
+		<div style="text-align: right;">
+		<a   class="btn btn mt-2 mb-3" href="{% url 'new_client' %}" role="button">Nouveau</a>
+		</div>
+	</div>
+
+	<div class="display component text-center">
+		<!-- client -->
+		<table class="table client">
+			<thead>
+				<tr>
+					<th style="color: #fff" scope="col">#</th>
+					<th style="color: #fff" scope="col">Nom </th>
+					<th style="color: #fff" scope="col">Contact</th>
+					<th style="color: #fff" scope="col">Adresse</th>
+					<th style="color: #fff" scope="col">E-mail</th>
+					<th style="color: #fff" scope="col">CINE</th>
+					<th style="color: #fff" scope="col">Bénificiaire </th>
+					<th style="color: #fff" scope="col">Monture </th>
+					<th style="color: #fff" scope="col">Verre </th>
+					<th style="color: #fff" scope="col">OG</th>
+					<th style="color: #fff" scope="col">OD</th>
+					<th style="color: #fff" scope="col">EIP </th>
+					<th style="color: #fff" scope="col">ADD </th>
+					<th style="color: #fff" scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for client in listclient %}
+				<tr class="{{client.id}}">
+					<th style="color: #fff" scope="row">{{forloop.counter}}</th>
+					<td style="color: #fff">{{client.name}}</td>
+					<td style="color: #fff">{{client.phone}}</td>
+					<td style="color: #fff">{{client.address}}</td>
+					<td style="color: #fff">{{client.email}}</td>
+					<td style="color: #fff">{{client.zip_code}}</td>
+					<td style="color: #fff">{{client.benificiaire}}</td>
+					<td style="color: #fff">{{client.monture}}</td>
+					<td style="color: #fff">{{client.verre}}</td>
+					<td style="color: #fff">{{client.OG}}</td>
+					<td style="color: #fff">{{client.OD}}</td>
+					<td style="color: #fff">{{client.EIP}}</td>
+					<td style="color: #fff">{{client.ADD}}</td>
+					<td><a href="{% url 'edit_client' client.id %}"
+						class="btn btn-warning">Modifier</a>
+						<a
+						href="{% url 'delete_client' client.id %}"
+						class="btn btn-danger">Supprimer</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% endblock %}

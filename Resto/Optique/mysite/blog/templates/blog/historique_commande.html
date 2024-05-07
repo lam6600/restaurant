@@ -1,0 +1,99 @@
+{% extends 'blog/layout.html' %} 
+{% block head %}
+{{ block.super }}
+<style>
+
+.btn.btn {
+  font-size: 18px;
+  outline: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 1s;
+  border: 1px solid #3eb2fa;
+  background-color: transparent;
+  color: white;
+}
+
+.btn.btn:hover {
+  background: #3eb2fa;
+}
+.btn.btn-warning:hover {
+  background-color: orange; 
+}
+
+.btn.btn-danger:hover {
+  background-color: red;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="edit-background">
+  <input  
+    class="btn btn"
+    type="button"
+    value="Retour"
+    onClick="javascript:history.go(-1);"
+  />
+  {% comment %} <div class="search-bar">
+    <form method="GET" action="{% url 'historique' %}">
+      <input
+        type="text"
+        name="search"
+        placeholder="Search by name"
+        value="{{ search }}"
+      />
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div> {% endcomment %}
+  <div style="color: #fff" class="edit-title text-center">
+    <div class="">
+      <h1>Liste des Ventes</h1>
+    </div>
+  </div>
+  <br><br>
+  <table class="table article text-center">
+    <thead>
+      <tr>
+        <th style="color: #fff" scope="col">#</th>
+        <th style="color: #fff" scope="col">Nom</th>
+        <th style="color: #fff" scope="col">Prix unitaire</th>
+        <th style="color: #fff" scope="col">Nombre d'article</th>
+        <th style="color: #fff" scope="col">Fournisseur</th>
+        <th style="color: #fff" scope="col">Vendu à</th>
+        <th style="color: #fff" scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for commande in hist_commandes %}
+      <tr class="{{ commande.id }}">
+        <th style="color: #fff" scope="row">{{ forloop.counter }}</th>
+        <td style="color: #fff">{{ commande.article.name }}</td>
+        <td style="color: #fff">{{ commande.article.price }}</td>
+        <td style="color: #fff">{{ commande.quantite }}</td>
+        <td style="color: #fff">{{ commande.article.provider.name }}</td>
+        <td style="color: #fff">{{ commande.client.name }}</td>
+        <td class="d-flex align-items-center justify-content-around">
+          <form action="{% url 'delete_commande' commande.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    
+  </table>
+</div>
+
+<script>
+  function deleteCommande(commandeId) {
+    // Code pour supprimer la commande avec l'ID spécifié
+    // Vous pouvez envoyer une requête AJAX pour supprimer la commande côté serveur
+    // ou effectuer toute autre action nécessaire
+    console.log('Supprimer la commande avec l\'ID : ' + commandeId);
+  }
+</script>
+
+{% endblock %}
+

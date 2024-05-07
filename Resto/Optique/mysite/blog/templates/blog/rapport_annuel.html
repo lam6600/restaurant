@@ -1,0 +1,68 @@
+{% extends 'blog/layout.html' %}
+{% block head %}
+{{ block.super }}
+<style>
+
+.btn.btn {
+font-size: 18px;
+outline: none;
+padding: 8px 16px;
+border-radius: 6px;
+cursor: pointer;
+transition: 1s;
+border: 1px solid #3eb2fa;
+background-color: transparent;
+color: white;
+}
+
+.btn.btn:hover {
+background: #3eb2fa;
+}
+.btn.btn-warning:hover {
+background-color: orange; 
+}
+
+.btn.btn-danger:hover {
+background-color: red;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <input   class="btn btn" type=button value="Retour" onClick="javascript:history.go(-1);">
+	
+    <h1 class="mt-4 mb-4">Rapport Annuel</h1>
+    
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Graphique des Montants</h2>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ clients|safe }},
+            datasets: [{
+                label: 'Clients',
+                data: {{ clients_montants|safe }},
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

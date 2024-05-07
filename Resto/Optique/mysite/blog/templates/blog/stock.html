@@ -1,0 +1,92 @@
+{% extends 'blog/layout.html' %} 
+{% block head %}
+{{ block.super }}
+<style>
+  
+    .title {
+      text-align: center;
+      
+    }
+.btn.btn {
+  font-size: 18px;
+  outline: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 1s;
+  border: 1px solid #3eb2fa;
+  background-color: transparent;
+  color: white;
+}
+
+.btn.btn:hover {
+  background: #3eb2fa;
+}
+.btn.btn-warning:hover {
+  background-color: orange; 
+}
+
+.btn.btn-danger:hover {
+  background-color: red;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div  class="content">
+  <input  
+    class="btn btn"
+    type="button"
+    value="Retour"
+    onClick="javascript:history.go(-1);"
+  />
+  <div class="search-bar" style="float: right;">
+    <form method="GET" action="{% url 'stock' %}">
+      <input
+        type="text"
+        name="search"
+        placeholder="Search by name"
+        value="{{ search }}"
+      />
+      <button   type="submit" class="btn btn mt-2 mb-3">Search</button>
+    </form>
+  </div>
+  <br>
+  <br>
+  <div class="title">
+    <br>
+    <h1 style="color: #fff">Stock</h1>
+  </div>
+<br>
+<br>
+<br>
+  <div class="display component text-center">
+    <!-- Stock -->
+    <table class="table stock">
+      <thead>
+        <tr>
+          <th style="color: #fff" scope="col">#</th>
+          <th style="color: #fff" scope="col">Article</th>
+          <th style="color: #fff" scope="col">Stock</th>
+          <th style="color: #fff" scope="col">Dernière Modification</th>
+          <th style="color: #fff" scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for stock in stock_list %}
+        <tr>
+          <th style="color: #fff" scope="row">{{ forloop.counter }}</th>
+          <td style="color: #fff">{{ stock.name }}</td>
+          <td style="color: #fff">{{ stock.stock }}</td>
+          <td style="color: #fff">{{ stock.last_modified }}</td>
+          <td>
+            <a  href="{% url 'delete_stock' stock.name %}" class="btn btn-danger"
+              >Supprimer</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

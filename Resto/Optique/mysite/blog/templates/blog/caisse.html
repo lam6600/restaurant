@@ -1,0 +1,134 @@
+{% extends 'blog/layout.html' %} 
+{% block head %}
+{{ block.super }}
+<style>
+
+.btn.btn {
+  font-size: 18px;
+  outline: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 1s;
+  border: 1px solid #3eb2fa;
+  background-color: transparent;
+  color: white;
+}
+
+.btn.btn:hover {
+  background: #3eb2fa;
+}
+.btn.btn-warning:hover {
+  background-color: orange; 
+}
+
+.btn.btn-danger:hover {
+  background-color: red;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="content">
+  <input  
+    class="btn btn"
+    type="button"
+    value="Retour"
+    onClick="javascript:history.go(-1);"
+  />
+  <div style="text-align: right;">
+  <button   onclick="window.location.href = '/historique_commandes';" class="btn btn">Afficher</button>
+</div>
+
+    <br>
+    <br>
+    <form method="POST">
+      {% if error_message %}
+      <div class="error">{{ error_message }}</div>
+      {% endif %} {% csrf_token %} {% if messages %}
+      <div class="alert alert-danger">
+        {% for message in messages %} {{ message }} {% endfor %}
+      </div>
+      {% endif %}
+      <div class="form-row">
+        <div class="form-group mr-5">
+          <label style="color: #fff" for="produit">Produit</label>
+          <select class="form-control" name="produit">
+            <option  value="">Sélectionner un produit</option>
+            {% for article in articles %}
+            <option value="{{ article.name }}">{{ article.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group mr-5">
+          <label style="color: #fff" for="barcode">Quantite</label>
+          <input
+            required="required"
+            type="number"
+            class="form-control"
+            name="qty"
+          />
+        </div>
+        <div class="form-group mr-3">
+          <label style="color: #fff" for="client">Vendre à</label>
+          <select class="form-control" name="client">
+            <option value="">Sélectionner un client</option>
+            {% for client in clients %}
+            <option value="{{ client.id }}">{{ client.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div  class="form-group mt-4 pt-1 ml-5">
+          <button   type="submit" class="btn btn">Ajouter</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <br>
+  <div class="display component text-center">
+    <table class="table article text-center ">
+      <thead>
+        <tr>
+          <th style="color: #fff" scope="col">#</th>
+          <th style="color: #fff" scope="col">Marque</th>
+          <th style="color: #fff" scope="col">Code</th>
+          <th style="color: #fff" scope="col">Prix unitaire</th>
+          <th style="color: #fff" scope="col">Quantité</th>
+          <th style="color: #fff" scope="col">Fournisseur</th>
+          <th style="color: #fff" scope="col">Client </th>
+          <th style="color: #fff" scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for commande in commandes %}
+        <tr class="{{ commande.id }}">
+          <th style="color: #fff" scope="row">{{ forloop.counter }}</th>
+          <td style="color: #fff">{{ commande.article.name }}</td>
+          <td style="color: #fff">{{ commande.article.barcode }}</td>
+          <td style="color: #fff">{{ commande.article.price }}</td>
+          <td style="color: #fff">{{ commande.quantite }}</td>
+          <td style="color: #fff">{{ commande.article.provider.name }}</td>
+          <td style="color: #fff">{{ commande.client.name }}</td>
+
+          <td class="d-flex align-items-center justify-content-around">
+            <form
+              action="{% url 'delete_all_articles' commande.id %}"
+              method="POST"
+            >
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Supprimer</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <form action="{% url 'paiement' %}" method="post" class="mt-4">
+      {% csrf_token %}
+      <button type="submit" class="btn btn">Valider</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

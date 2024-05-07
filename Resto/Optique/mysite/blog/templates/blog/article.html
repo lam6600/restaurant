@@ -1,0 +1,106 @@
+{% extends 'blog/layout.html' %}
+
+{% block head %}
+{{ block.super }}
+<style>
+
+.btn.btn {
+  font-size: 18px;
+  outline: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 1s;
+  border: 1px solid #3eb2fa;
+  background-color: transparent;
+  color: white;
+}
+
+.btn.btn:hover {
+  background: #3eb2fa;
+}
+.btn.btn-warning:hover {
+  background-color: orange; 
+}
+
+.btn.btn-danger:hover {
+  background-color: red;
+}
+.table.article {
+  width:120%;
+  border-collapse: collapse;
+  border-radius: 1px;
+  overflow: hidden;
+  margin-left:-100px;
+      }
+</style>
+{% endblock %}
+{% block body %}
+<div class="content">
+  <input
+    class="btn btn"
+    type="button"
+    value="Retour"
+    onClick="javascript:history.go(-1);"
+  />
+  <br>
+  <br>
+  <div class="title text-right">
+    <a
+
+      class="btn btn mt-2 mb-3"
+      href="{% url 'new_article' %}"
+      role="button"
+      >Ajouter</a
+    >
+  </div>
+<br>
+
+  <div style="color: #fff" class="display component text-center">
+    <h1>Liste des produits</h1>
+    <br><br>
+    <table class="table article">
+      <thead>
+        <tr>
+          <th style="color: #fff" scope="col">Code</th>
+          <th style="color: #fff" scope="col">Marque</th>
+          <th style="color: #fff" scope="col">Réference</th>
+          <th style="color: #fff" scope="col">Catégorie</th>
+          <th style="color: #fff" scope="col">Quantité</th>
+          <th style="color: #fff" scope="col">Représentant</th>
+          <th style="color: #fff" scope="col">Prix unitaire</th>
+          <th style="color: #fff" scope="col">Date d'achat</th>
+          <th style="color: #fff" cope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for article in listarticle %}
+        <tr class="{{ article.id }}">
+          <td style="color: #fff">{{ article.barcode }}</td>
+          <td style="color: #fff">{{ article.name }}</td>
+          <td style="color: #fff">{{ article.reference }}</td>
+          <td style="color: #fff">{{ article.categorie }}</td>
+          <td style="color: #fff">{{ article.quantite }}</td>
+          <td style="color: #fff">{{ article.provider }}</td>
+          <td style="color: #fff">{{ article.price }}</td>
+          <td style="color: #fff">{{ article.date_added }}</td>
+          <td>
+            <a
+              href="{% url 'edit_article' article.id %}"
+              class="btn btn-warning"
+              >Modifier</a
+            >
+            <a
+              href="{% url 'delete_article' article.barcode %}"
+              class="btn btn-danger"
+              >Supprimer</a
+            >
+          </td>
+          
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

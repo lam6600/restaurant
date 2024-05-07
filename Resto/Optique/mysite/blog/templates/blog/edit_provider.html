@@ -1,0 +1,95 @@
+{% extends 'blog/layout.html' %} 
+{% block head %}
+{{ block.super }}
+<style>
+
+.btn.btn {
+  font-size: 18px;
+  outline: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 1s;
+  border: 1px solid #3eb2fa;
+  background-color: transparent;
+  color: white;
+}
+
+.btn.btn:hover {
+  background: #3eb2fa;
+}
+.btn.btn-warning:hover {
+  background-color: orange; 
+}
+
+.btn.btn-danger:hover {
+  background-color: red;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="edit-background">
+	<input class="btn btn" type="button" value="Retour" onClick="javascript:history.go(-1);">
+	
+	<div class="edit-title text-center">
+		<div class="">
+			<h1 style="color: #fff">Modifier {{provider.name}}</h1>
+		</div>
+	</div>
+	{% if messages %}
+    <ul style="color: #fff" class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+	<div class="edit-body">
+		<div class="edit-component edit-left-box">
+			<div class="edit-box edit-provider-informations">
+				<form method="POST">
+					{% csrf_token %}
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label style="color: #fff" for="name">Raison sociale </label>
+							<input type="text" class="form-control" name="raison_sociale" value="{{provider.raison_sociale}}">
+						</div>
+						<div class="form-group col-md-6">
+							<label style="color: #fff" for="zip_code">ICE</label>
+							<input type="text" class="form-control" name="zip_code" value="{{provider.zip_code}}">
+						</div>
+						<div class="form-group col-md-6">
+							<label style="color: #fff" for="name">Nom </label>
+							<input type="text" class="form-control" name="name" value="{{provider.name}}">
+						</div>
+						<div class="form-group col-md-6">
+							<label style="color: #fff" for="fix">Fix</label>
+							<input type="text" class="form-control" name="fix" value="{{provider.fix}}">
+						</div>
+						<div class="form-group col-md-6">
+							<label style="color: #fff" for="phone">Contact</label>
+							<input type="text" class="form-control" name="phone" value="{{provider.phone}}">
+						</div>
+						<div class="form-group col-md-6">
+							<label style="color: #fff" for="address">Adresse</label>
+							<input type="text" class="form-control" name="address" value="{{provider.address}}">
+						</div>
+						<div class="form-group col-md-6">
+							<label style="color: #fff" for="name">Ville </label>
+							<input type="text" class="form-control" name="ville" value="{{provider.ville}}">
+						</div>
+						<div class="form-group col-md-6">
+							<label style="color: #fff" for="email">E-mail</label>
+							<input type="email" class="form-control" name="email" value="{{provider.email}}">
+						</div>
+						<div class="form-group col-md-6">
+							<label style="color: #fff" for="montant">Montant</label>
+							<input type="text" class="form-control" name="montant" value="{{provider.montant}}">
+						</div>
+					</div>
+					<button type="submit" class="btn btn">Modifier</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'blog/layout.html' %}
+{% block head %}
+{{ block.super }}
+<style>
+  .btn.btn {
+    font-size: 18px;
+    outline: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 1s;
+    border: 1px solid #3eb2fa;
+    background-color: transparent;
+    color: white;
+  }
+
+  .btn.btn:hover {
+    background: #3eb2fa;
+  }
+
+  .btn.btn-warning:hover {
+    background-color: orange;
+  }
+
+  .btn.btn-danger:hover {
+    background-color: red;
+  }
+</style>
+{% endblock %}
+{% block body %}
+<div class="edit-background">
+  <input class="btn btn" type="button" value="Retour" onClick="javascript:history.go(-1);">
+
+  <div class="edit-title text-center">
+    <div class="">
+      <h1 style="color: #fff">Modifier {{client.name}}</h1>
+    </div>
+  </div>
+  {% if messages %}
+    <ul style="color: #fff" class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <div class="edit-body">
+    <div class="edit-component edit-left-box">
+      <div class="edit-box edit-client-informations">
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="name">Marque </label>
+              <input type="text" class="form-control" name="name" value="{{client.name}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="phone">Contact</label>
+              <input type="text" class="form-control" name="phone" value="{{client.phone}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="address">Adresse</label>
+              <input type="text" class="form-control" name="address" value="{{client.address}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="email">E-mail</label>
+              <input type="text" class="form-control" name="email" value="{{client.email}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="zip_code">CINE</label>
+              <input type="text" class="form-control" name="zip_code" value="{{client.zip_code}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="benificiaire">Bénificiaire </label>
+              <input type="text" class="form-control" name="benificiaire" value="{{client.benificiaire}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="monture">Monture </label>
+              <input type="text" class="form-control" name="monture" value="{{client.monture}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="verre">Verre </label>
+              <input type="text" class="form-control" name="verre" value="{{client.verre}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="OG">OG</label>
+              <input type="text" class="form-control" name="OG" value="{{client.OG}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="OD">OD</label>
+              <input type="text" class="form-control" name="OD" value="{{client.OD}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="EIP">EIP </label>
+              <input type="text" class="form-control" name="EIP" value="{{client.EIP}}">
+            </div>
+            <div class="form-group col-md-6">
+              <label style="color: #fff" for="ADD">ADD </label>
+              <input type="text" class="form-control" name="ADD" value="{{client.ADD}}">
+            </div>
+          </div>
+          <button type="submit" class="btn btn">Modifier</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

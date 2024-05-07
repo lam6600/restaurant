@@ -1,0 +1,108 @@
+{% extends 'blog/layout.html' %}
+
+{% block head %}
+  {{ block.super }}
+  <style>
+    .btn.btn {
+      font-size: 18px;
+      outline: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 1s;
+      border: 1px solid #3eb2fa;
+      background-color: transparent;
+      color: white;
+    }
+
+    .btn.btn:hover {
+      background: #3eb2fa;
+    }
+
+    .btn.btn-warning:hover {
+      background-color: orange;
+    }
+
+    .btn.btn-danger:hover {
+      background-color: red;
+    }
+
+    .button-group {
+      display: inline-block;
+    }
+
+    .button-group a {
+      margin-right: 10px;
+    }
+    .table.provider {
+width:130%;
+border-collapse: collapse;
+border-radius: 1px;
+overflow: hidden;
+margin-left:-120px;
+    }
+
+  </style>
+{% endblock %}
+
+{% block body %}
+  <div class="content">
+    <input class="btn btn" type="button" value="Retour" onClick="javascript:history.go(-1);" />
+    <div class="search-bar" style="float: right;">
+      <form method="GET" action="{% url 'provider' %}">
+        <input type="text" name="search" placeholder="Search by ville" value="{{ search }}" />
+        <button type="submit" class="btn btn mt-2 mb-3">Search</button>
+      </form>
+    </div>
+    <br>
+    <br>
+
+    <div style="color: #fff" class="title text-center">
+      <h1>Liste des Fournisseurs</h1>
+      <div style="text-align: right;">
+        <a class="btn btn mt-2 mb-3" href="{% url 'new_provider' %}" role="button">Nouveau</a>
+      </div>
+    </div>
+
+    <div class="display component text-center">
+      <!-- Provider -->
+      <table class="table provider">
+        <thead>
+          <tr>
+            <th style="color: #fff" scope="col">Raison sociale</th>
+            <th style="color: #fff" scope="col">ICE</th>
+            <th style="color: #fff" scope="col">Représentant</th>
+            <th style="color: #fff" scope="col">Fix</th>
+            <th style="color: #fff" scope="col">Contact</th>
+            <th style="color: #fff" scope="col">Adresse</th>
+            <th style="color: #fff" scope="col">Ville</th>
+            <th style="color: #fff" scope="col">E-mail</th>
+            <th style="color: #fff" scope="col">Achats</th> 
+            <th style="color: #fff" scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for provider in list_provider %}
+            <tr>
+              <td style="color: #fff">{{ provider.raison_sociale }}</td>
+              <td style="color: #fff">{{ provider.zip_code }}</td>
+              <td style="color: #fff">{{ provider.name }}</td>
+              <td style="color: #fff">{{ provider.fix }}</td>
+              <td style="color: #fff">{{ provider.phone }}</td>
+              <td style="color: #fff">{{ provider.address }}</td>
+              <td style="color: #fff">{{ provider.ville }}</td>
+              <td style="color: #fff">{{ provider.email }}</td>
+              <td style="color: #fff">{{ provider.montant }}</td>
+              <td>
+                <div class="button-group">
+                  <a href="{% url 'edit_provider' provider.id %}" class="btn btn-warning">Modifier</a>
+                  <a href="{% url 'delete_provider' provider.id %}" class="btn btn-danger">Supprimer</a>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

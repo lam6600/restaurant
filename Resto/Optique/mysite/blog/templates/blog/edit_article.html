@@ -1,0 +1,100 @@
+{% extends 'blog/layout.html' %}
+{% block head %}
+{{ block.super }}
+<style>
+
+.btn.btn {
+font-size: 18px;
+outline: none;
+padding: 8px 16px;
+border-radius: 6px;
+cursor: pointer;
+transition: 1s;
+border: 1px solid #3eb2fa;
+background-color: transparent;
+color: white;
+}
+
+.btn.btn:hover {
+background: #3eb2fa;
+}
+.btn.btn-warning:hover {
+background-color: orange; 
+}
+
+.btn.btn-danger:hover {
+background-color: red;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="edit-background">
+    <input class="btn btn"  type="button" value="Retour" onClick="javascript:history.go(-1);">
+    
+    <div class="edit-title text-center">
+        <div class="">
+            <h1 style="color: #fff">Modifier {{article.name}}</h1>
+        </div>
+    </div>
+    {% if messages %}
+    <ul style="color: #fff" class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+    <div class="edit-body">
+        <div class="edit-component edit-left-box">
+            <div class="edit-box edit-article-informations">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label style="color: #fff" for="name">Marque</label>
+                            <input type="text" class="form-control" name="name" value="{{article.name}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label style="color: #fff" for="reference">Référence</label>
+                            <input type="text" class="form-control" name="reference" value="{{article.reference}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label style="color: #fff" for="categorie">Catégorie</label>
+                            <input type="text" class="form-control" name="categorie" value="{{article.categorie}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label style="color: #fff" for="price">Prix</label>
+                            <input type="number" step="0.01" class="form-control" name="price" value="{{article.price}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label style="color: #fff" for="barcode">Code</label>
+                            <input type="number" class="form-control" name="barcode" value="{{article.barcode}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label style="color: #fff" for="quantite">quantite</label>
+                            <input type="number" class="form-control" name="quantite" value="{{article.quantite}}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label style="color: #fff" for="provider">Raison sociale</label>
+                            <select class="form-control" name="provider">
+                                {% for provider in list_provider %}
+                                    {% if provider.id == article.provider.id %}
+                                        <option value="{{article.provider.id}}" selected="selected">{{article.provider.raison_sociale}}</option>
+                                    {% else %}
+                                        <option value="{{provider.id}}">{{provider.raison_sociale}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label style="color: #fff" for="date_added">Date d'ajout</label>
+                            <input type="text" class="form-control" name="date_added" value="{{article.date_added}}" readonly>
+                        </div>
+                       
+                    </div>
+                    <button  type="submit" class="btn btn">Modifier</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

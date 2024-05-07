@@ -1,0 +1,106 @@
+<!-- creer_facture.html -->
+{% extends 'blog/layout.html' %}
+{% load static %}
+
+{% block body %}
+<style>
+    h1 {
+        color: #fff;
+        text-align: center;
+    }
+
+    form {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 300px;
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="submit"] {
+        font-size: 18px;
+        outline: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition:1s;
+        border: 1px solid rgb(170, 220, 232);
+        background-color: transparent;
+        color: black;
+        margin-left: 85px;
+    }
+
+    input[type="submit"]:hover {
+        background: green;
+    }
+
+    input[type="text"],
+    select {
+        width: 100%;
+        padding: 5px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+
+    .avance-input {
+        display: none;
+    }
+</style>
+
+<h1>Créer une facture</h1>
+<br>
+
+<!-- creer_facture.html -->
+<form method="post">
+    {% csrf_token %}
+    <label>Numéro de facture:</label>
+    <input type="text" name="numero" required>
+    <label>Client:</label>
+    {{ form.client }}
+    <br>
+    <label>Article:</label>
+    {{ form.article }}
+    <br>
+    <label>Quantité:</label>
+    {{ form.quantite }}
+    <br>
+    <label>Prix unitaire:</label>
+    {{ form.prix_unitaire }}
+    <br>
+    <label>Avance:</label>
+    {{ form.choix_avance }}
+    <div id="avance-input" class="avance-input">
+        <input type="text" name="avance">
+    </div>
+    <br>
+
+    <input type="submit" value="Valider">
+</form>
+
+<script>
+    // Afficher l'input d'avance lorsque "Oui" est sélectionné
+    const choixAvance = document.querySelector('input[name="choix_avance"]');
+    const avanceInput = document.getElementById('avance-input');
+
+    choixAvance.addEventListener('change', function () {
+        if (this.value === 'Oui') {
+            avanceInput.style.display = 'block';
+        } else {
+            avanceInput.style.display = 'none';
+        }
+    });
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+*{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+  color:#fff ;
+  font-family:'Oswald',sans-serif;
+}
+.container {
+  background-image:linear-gradient(rgba(0,2,5,0.9),rgba(2,0,0,0.8)),url('https://www.rominoptical.ca/wp-content/uploads/2022/01/Romin-Optical-Sunglasses-Display.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  min-height:100vh;
+  flex-direction:column;
+}
+nav{
+  padding:3% 6%;
+  display:flex;
+  justify-content: space-between;
+}
+.nav-links{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+}
+.logo{
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  text-transform: uppercase;
+  font-size: 40px;
+}
+nav ul{
+  display:flex;
+  list-style:none;
+  margin:auto;
+  align-items: center; /* Center the menu vertically */
+  justify-content: flex-end; /* Move the menu to the right */
+}
+nav ul li{
+  margin:0 15px;
+}
+nav ul li a{
+  text-decoration:none;
+  font-size:15px;
+  text-transform: uppercase;
+  transition:0.5s;
+}
+.social a{
+  margin:0 10px;
+}
+nav ul li a:hover{
+  color:#62b6ca;
+}
+nav ul li a::after{
+  content:"";
+  display:block;
+  height:2px;
+  width:0;
+  background-color:#62b6ca;
+  transition: 0.5s;
+}
+nav ul li a:hover::after{
+  width:100%;
+}
+
+.main{
+  margin-top:110px;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+.main h2{
+  font-size: 42px;
+  text-transform: uppercase;
+  color:#3e81a9;
+  font-family: "Poppins" , sans-serif;
+}
+.main h3{
+  font-size: 32px;
+  text-transform: uppercase;
+  font-family: "Poppins" , sans-serif;
+}
+
+
+.logo img {
+  width: 200px;
+  height: 60px;
+
+}
+
+.h2-h3-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 30vh; /* Set the height to fill the viewport vertically */
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<nav>
+<div class="logo">
+    <img src="https://digiup.ma/wp-content/uploads/2020/12/Capture_d_ecran_2022-08-26_153120-removebg-preview.png" alt="Logo" style="background: transparent">
+</div>
+<div class="nav-links">
+  <ul id="menu">
+    <li><a href="{% url 'accueil' %}">Accueil</a></li>
+    <li><a href="{% url 'provider' %}">Fournisseur</a></li>
+    <li><a href="{% url 'client' %}">Client</a></li>
+    <li><a href="{% url 'article' %}">Produit</a></li>
+    <li><a href="{% url 'stock' %}">Stock</a></li>
+    <li><a href="{% url 'caisse' %}">Vente</a></li>
+    <li><a href="{% url 'creer_facture' %}">Facture</a></li>
+    <li><a href="{% url 'logout' %}">logout</a></li>
+  </ul>
+</div>
+</nav>
+<br>
+<br>
+
+<div class="main">
+  <div class="h2-h3-container">
+    <h3>Bienvenue chez DIGI OPTIQUE</h3>
+    <br>
+    <br>
+    <h2>"OPTIQUE FATIHE"</h2>
+  </div>
+</div>
+
+</body>
+</html>
